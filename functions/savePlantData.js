@@ -14,7 +14,8 @@ async function savePlantData(req, callback) {
     var plant_name = req.body.plant_name;
     var plant_price = req.body.plant_price;
     var plant_status = req.body.plant_status;
-    var plant_photo = req.file.path;
+    var plant_photo = "xyz";
+    plant_photo = req.file.path;
 
     if (!plant_type ||
         !plant_name ||
@@ -23,7 +24,7 @@ async function savePlantData(req, callback) {
         !plant_status
     ) {
         callback({
-            "message": "Please send all Information"
+            "message": "Please Provide all Information"
         })
     }
     else {
@@ -47,7 +48,7 @@ async function savePlantData(req, callback) {
             await plantObj.save(function (error, result) {
                 if (error) {
                     callback({
-                        "message": "Some Error Occured"
+                        "message": "Oops something went wrong."
                     })
                 } else {
                     plantsDB.findOneAndUpdate({ "_id": result.id }, {

@@ -1,6 +1,9 @@
 var multer = require('multer');
 var savePlantData = require("./functions/savePlantData");
 var getPlantData = require("./functions/getPlantData");
+var removePlantData = require("./functions/removePlantData");
+var updatePlantData = require("./functions/updatePlantData");
+var searchPlantData = require("./functions/searchPlantData");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -34,7 +37,7 @@ module.exports = router => {
     })
 
     // Get Plant Data
-    
+
     router.get('/getPlantData', function (req,res){
         getPlantData.getPlantData(function( error, result){
             if (error) {
@@ -43,6 +46,47 @@ module.exports = router => {
             }
             else {
                 log.info("Api name :- getPlantData -- success");
+                res.send(result)
+            }
+        })
+    });
+
+    // Remove Plant Data
+
+    router.post('/removePlantData', function(req,res){
+        removePlantData.removePlantData(req, function (error, result){
+            if (error) {
+                log.info(`Api name :- removePlantData -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- removePlantData -- success");
+                res.send(result)
+            }
+        })
+    });
+
+    router.post('/updatePlantData',upload.single('photo'), function(req,res){
+        updatePlantData.updatePlantData(req,function(error,result){
+            if (error) {
+                log.info(`Api name :- updatePlantData -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- updatePlantData -- success");
+                res.send(result)
+            }
+        })
+    });
+
+    router.post('/searchPlantData',function(req,res){
+        searchPlantData.searchPlantData(req, function (error, result){
+            if (error) {
+                log.info(`Api name :- searchPlantData -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- searchPlantData -- success");
                 res.send(result)
             }
         })
