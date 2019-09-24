@@ -1,6 +1,8 @@
 var plantsDB = require("../models/plantsDetails");
 const isEmpty = require('is-empty');
 const fs = require('fs');
+var log4js = require('log4js');
+var log = log4js.getLogger("app");
 
 module.exports = {
     savePlantData: savePlantData,
@@ -11,12 +13,14 @@ async function savePlantData(req, callback) {
     var plant_type = req.body.plant_type;
     var plant_name = req.body.plant_name;
     var plant_price = req.body.plant_price;
+    var plant_status = req.body.plant_status;
     var plant_photo = req.file.path;
 
     if (!plant_type ||
         !plant_name ||
         !plant_price ||
-        !plant_photo
+        !plant_photo ||
+        !plant_status
     ) {
         callback({
             "message": "Please send all Information"
@@ -32,7 +36,8 @@ async function savePlantData(req, callback) {
             plant_type: plant_type,
             plant_name: plant_name,
             plant_price: plant_price,
-            plant_photo: plant_photo
+            plant_photo: plant_photo,
+            plant_status : plant_status
         }
 
         let plantData = await plantsDB.find();
@@ -59,13 +64,14 @@ async function savePlantData(req, callback) {
                             }
                             let data = JSON.stringify(series);
                             fs.writeFileSync('./plant_no.json', data);
+                            // log.info(`Api name :- personalInfo -- ${error}`);
                             callback({
                                 "message": "Plant Data Saved Successfully"
                             })
                         })
                         .catch((error) => {
                             console.log(error);
-                            //log.info(`Api name :- personalInfo -- ${error}`);
+                            log.info(`Api name :- uploadPlantData -- ${error}`);
                             callback({
                                 "message": "Oops something went wrong."
                             })
@@ -93,7 +99,7 @@ async function savePlantData(req, callback) {
                 })
                 .catch((error) => {
                     console.log(error)
-                    //log.info(`Api name :- personalInfo -- ${error}`);
+                    log.info(`Api name :- uploadPlantData -- ${error}`);
                     callback({
                         "message": "Oops something went wrong."
                     })
