@@ -8,6 +8,12 @@ module.exports = {
 async function searchPlantData(req,callback) {
     var plant_no = req.body.plant_no;
 
+    if(!plant_no){
+        callback({
+            "message": "Please Provide Plant Number"
+        })
+    }else{
+
     await plantsDB.find()
         .then((plantData) => {
             if (isEmpty(plantData)) {
@@ -36,4 +42,5 @@ async function searchPlantData(req,callback) {
                 
             }
         })
+    }
 }

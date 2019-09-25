@@ -11,6 +11,12 @@ module.exports = {
 async function removePlantData(req, callback) {
     var plant_no = req.body.plant_no;
 
+    if(!plant_no){
+        callback({
+            "message": "Please Provide Plant Number"
+        })
+    }else{
+
     await plantsDB.findOneAndUpdate({"plants.plant_no": plant_no},{
         $pull : {
             "plants":{
@@ -38,4 +44,5 @@ async function removePlantData(req, callback) {
                     "message": "Oops something went wrong."
                 })
             })
+        }
 }
