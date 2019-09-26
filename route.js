@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
         cb(null, 'public/')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + Math.random().toString(36).substring(2, 15) + "-" + file.originalname)
+        cb(null, Date.now() + "-" + file.originalname)
     }
 })
 
@@ -21,9 +21,10 @@ var log = log4js.getLogger("app");
 
 module.exports = router => {
 
-    // Upload Plant Image
 
-    router.post('/uploadPlantData', upload.single('photo'), async (req, res) => {
+    // Upload Plant Image 
+
+    router.post('/uploadPlantData',upload.single('photo'), async (req, res) => {
         savePlantData.savePlantData(req, function (error, result) {
             if (error) {
                 log.info(`Api name :- uploadPlantData -- ${error}`);

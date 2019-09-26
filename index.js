@@ -2,16 +2,18 @@
 var cors=require("cors")
 var express = require('express');
 var bodyParser = require("body-parser");
+const router = express.Router();
+var app = express();
+const mongoose = require("mongoose");
 var log4js = require('log4js');
+
 log4js.configure({
   appenders: { app: { type: 'file', filename: 'logs/app.log' } },
   categories: { default: { appenders: ['app'], level: 'info' } }
 });
 var log = log4js.getLogger("app");
 
-const router = express.Router();
-var app = express();
-const mongoose = require("mongoose");
+
 
 mongoose
   .connect(
@@ -24,6 +26,7 @@ mongoose
   .catch(err => {
     log.info("Oops something went wrong", err);
     console.log("Oops something went wrong", err)});
+
 app.use(cors());
 app.use(express.static('public'));
 app.use('/public', express.static(__dirname + '/public'))
