@@ -4,6 +4,8 @@ var getPlantData = require("./functions/getPlantData");
 var removePlantData = require("./functions/removePlantData");
 var updatePlantData = require("./functions/updatePlantData");
 var searchPlantData = require("./functions/searchPlantData");
+var register = require("./functions/register");
+var login = require("./functions/login");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -95,6 +97,32 @@ module.exports = router => {
             }
         })
     });
+
+    router.post('/register', function(req,res){
+        register.register(req, function(error,result){
+            if (error) {
+                log.info(`Api name :- register -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- register -- success");
+                res.send(result)
+            }
+        })
+    });
+
+    router.post('/login',function(req,res){
+        login.login(req, function(error,result){
+            if (error) {
+                log.info(`Api name :- login -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- login -- success");
+                res.send(result)
+            }
+        })
+    })
 
     
 }
