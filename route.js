@@ -122,7 +122,5 @@ module.exports = router => {
                 res.send(result)
             }
         })
-    })
-
-    
+    })    
 }
