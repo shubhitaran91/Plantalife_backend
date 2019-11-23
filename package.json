@@ -13,6 +13,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "image-to-base64": "^2.0.1",
     "is-empty": "^1.2.0",
     "log4js": "^5.1.0",
     "mongoose": "^5.7.1",
