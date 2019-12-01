@@ -119,12 +119,12 @@ async function savePlantData(req, callback) {
   }
 }
 
-function convertImage2Base64(plant_photo, ) {
-  image2base64(plant_photo)
-    .then((base64) => {
-      return base64;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+// function convertImage2Base64(plant_photo, ) {
+//   image2base64(plant_photo)
+//     .then((base64) => {
+//       return base64;
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
