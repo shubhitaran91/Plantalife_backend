@@ -17,7 +17,8 @@ async function savePlantData(req, callback) {
   var plant_photo = "xyz";
   plant_photo = req.file.path;
 
-  const image2base64 = await convertImage2Base64(plant_photo);
+  plant_photo = await image2base64(plant_photo)
+  console.log("image2base64", plant_photo);
 
   if (
     !plant_type ||
@@ -118,10 +119,10 @@ async function savePlantData(req, callback) {
   }
 }
 
-function convertImage2Base64(plant_photo) {
+function convertImage2Base64(plant_photo, ) {
   image2base64(plant_photo)
     .then((base64) => {
-      console.log(base64);
+      return base64;
     })
     .catch((error) => {
       console.log(error);
