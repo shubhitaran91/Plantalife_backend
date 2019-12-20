@@ -65,7 +65,7 @@ async function savePlantData(req, callback) {
             )
             .then((result) => {
               console.log(result);
-              plant_no = plant_no + 1;
+              plant_no = Math.floor(100 + Math.random() * 900);
               let series = {
                 plant_no: plant_no
               };
@@ -98,7 +98,7 @@ async function savePlantData(req, callback) {
         )
         .then((result) => {
           console.log(result);
-          plant_no = plant_no + 1;
+          plant_no = Math.floor(100 + Math.random() * 900);;
           let series = {
             plant_no: plant_no
           };
