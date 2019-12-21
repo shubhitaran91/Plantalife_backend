@@ -8,7 +8,8 @@ const plantsDetails = new mongoose.Schema({
         plant_name : String,
         plant_price : String,
         plant_photo : String,
-        plant_status : String
+        plant_status : String,
+        plant_desc : String,
     }]
 
 });
