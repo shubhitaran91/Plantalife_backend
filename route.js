@@ -29,7 +29,6 @@ module.exports = router => {
     // Upload Plant Image 
 
     router.post('/uploadPlantData',upload.single('photo'), async (req, res) => {
-        console.log(req);
         savePlantData.savePlantData(req, function (error, result) {
             if (error) {
                 log.info(`Api name :- uploadPlantData -- ${error}`);
@@ -45,7 +44,7 @@ module.exports = router => {
     // Get Plant Data
 
     router.get('/getPlantData', function (req,res){
-        getPlantData.getPlantData(function( error, result){
+        getPlantData.getAllPlantData(function(error, result){
             if (error) {
                 log.info(`Api name :- getPlantData -- ${error}`);
                 res.send(error)
@@ -122,5 +121,18 @@ module.exports = router => {
                 res.send(result)
             }
         })
-    })    
+    });
+
+    router.post('/shopDetails',function(req,res){
+        getPlantData.getPlantDataByID(req, function(error,result){
+            if (error) {
+                log.info(`Api name :- shopDetails -- ${error}`);
+                res.send(error)
+            }
+            else {
+                log.info("Api name :- shopDetails -- success");
+                res.send(result)
+            }
+        })
+    });
 }
