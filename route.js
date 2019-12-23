@@ -28,7 +28,7 @@ module.exports = router => {
 
     // Upload Plant Image 
 
-    router.post('/uploadPlantData',upload.single('photo'), async (req, res) => {
+    router.post('/uploadPlantData', async (req, res) => {
         savePlantData.savePlantData(req, function (error, result) {
             if (error) {
                 log.info(`Api name :- uploadPlantData -- ${error}`);
