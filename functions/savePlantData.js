@@ -14,7 +14,7 @@ async function savePlantData(req, callback) {
   var plant_name = req.body.plant_name;
   var plant_price = req.body.plant_price;
   var plant_status = req.body.plant_status;
-  var plant_desc = req.body.plant_desc;
+  var plant_desc =  req.body.plant_desc;
   var plant_photo = "xyz";
   plant_photo = req.file.path;
 
@@ -23,7 +23,8 @@ async function savePlantData(req, callback) {
     !plant_name ||
     !plant_price ||
     !plant_photo ||
-    !plant_status
+    !plant_status ||
+    !plant_desc
   ) {
     callback({
       message: "Please Provide all Information"
