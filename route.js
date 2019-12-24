@@ -25,6 +25,10 @@ var log = log4js.getLogger("app");
 
 module.exports = router => {
 
+    router.get('/',(req,res)=>{
+        res.send('Welcome to Planta Life');
+    });
+
 
     // Upload Plant Image 
 
@@ -43,8 +47,8 @@ module.exports = router => {
 
     // Get Plant Data
 
-    router.get('/getPlantData', function (req,res){
-        getPlantData.getAllPlantData(function(error, result){
+    router.post('/getPlantData', function (req,res){
+        getPlantData.getPlantData(req,function(error, result){
             if (error) {
                 log.info(`Api name :- getPlantData -- ${error}`);
                 res.send(error)

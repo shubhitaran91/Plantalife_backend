@@ -2,14 +2,17 @@ var plantsDB = require("../models/plantsDetails");
 const isEmpty = require('is-empty');
 
 module.exports = {
-    getAllPlantData,
+    getPlantData,
     getPlantDataByID
 
 }
 
-async function getAllPlantData(callback) {
+async function getPlantData(req,callback) {
 
-    await plantsDB.find()
+    var plant_type = req.body.plant_type;
+
+
+    await plantsDB.find({'plant_type':plant_type})
         .then((plantData) => {
             if (isEmpty(plantData)) {
                 callback({
@@ -17,11 +20,14 @@ async function getAllPlantData(callback) {
                 })
             } else {
                 callback({
-                    "message": plantData[0].plants
+                    "message": plantData
                 })
             }
         })
 }
+
+
+
 
 async function getPlantDataByID(req,callback) {
 
