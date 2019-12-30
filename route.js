@@ -6,6 +6,7 @@ var updatePlantData = require("./functions/updatePlantData");
 var searchPlantData = require("./functions/searchPlantData");
 var register = require("./functions/register");
 var login = require("./functions/login");
+var checkout = require("./functions/checkout");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -138,5 +139,17 @@ module.exports = router => {
                 res.send(result)
             }
         })
+    });
+
+    router.post('/checkout',function(req,res){
+        checkout.checkout(req.body,function(error,result){
+            if(error){
+                log.info(`Api name :- checkout -- ${error}`);
+                res.send(error)
+            }else{
+                log.info("Api name :- checkout -- success");
+                res.send(result)
+            }
+        });
     });
 }

@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 
 const userDetails = new mongoose.Schema({
 
-    name: String,
+    fname: String,
+    lname: String, 
     email: {
         type : String,
         unique : true,
         required : true
     },
-    password: String,
+    mobile: String,
     registration_date : {
         type : Date,
         default : Date.now,
@@ -20,17 +21,22 @@ const userDetails = new mongoose.Schema({
             type : String,
             default: "Pending"
         },
-        order_date : String,
+        order_date : {
+            type : Date,
+            default: Date.now
+        },
         order_no : String,
-        billing_address: String,
-        contact_no : String,
-        alternative_no: String,
-
+        address: String,
+        city: String,
+        state: String,
+        zip: String,
+        notes: String,
+        subtotal: String,
+        shipping: String,
+        totalAmt: String,
         order_items : [{
             plantName : String,
             plantPrice : String,
-            totalBill : String,
-            type : String,
         }]
     }]
 })
