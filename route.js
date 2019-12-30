@@ -34,17 +34,19 @@ module.exports = router => {
     // Upload Plant Image 
 
     router.post('/uploadPlantData',upload.single('photo'), async (req, res) => {
-        savePlantData.savePlantData(req, function (error, result) {
-            if (error) {
-                log.info(`Api name :- uploadPlantData -- ${error}`);
-                res.send(error)
-            }
-            else {
-                log.info("Api name :- uploadPlantData -- success");
+        savePlantData.savePlantData(req, function (result) {
+            
+                console.log('result',result)
+                log.info(`Api name :- uploadPlantData -- ${result}`);
                 res.send(result)
-            }
-        })
-    })
+            
+            // else {
+            //     log.info("Api name :- uploadPlantData -- success");
+            //     console.log('result',result)
+            //     res.send(result)
+            // }
+        });
+    });
 
     // Get Plant Data
 

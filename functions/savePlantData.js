@@ -31,8 +31,9 @@ async function savePlantData(req, callback) {
     });
   } else {
     plant_photo = await image2base64(plant_photo);
-    let rawdata = fs.readFileSync("./plant_no.json");
-    var plant_no = JSON.parse(rawdata).plant_no;
+    // let rawdata = fs.readFileSync("./plant_no.json");
+    // var plant_no = JSON.parse(rawdata).plant_no;
+    let plant_no = Math.floor(100 + Math.random() * 900);
 
     var plantReq = {
       plant_no,
@@ -48,17 +49,18 @@ async function savePlantData(req, callback) {
 
     await plantObj.save(function (error, result) {
       if (error) {
+        console.log("error",error);
         callback({
           message: "Oops something went wrong."
         });
       } else {
-        console.log(result);
-        plant_no = Math.floor(100 + Math.random() * 900);
-        let series = {
-          plant_no: plant_no
-        };
-        let data = JSON.stringify(series);
-        fs.writeFileSync("./plant_no.json", data);
+        // console.log(result);
+        // plant_no = Math.floor(100 + Math.random() * 900);
+        // let series = {
+        //   plant_no: plant_no
+        // };
+        // let data = JSON.stringify(series);
+        // fs.writeFileSync("./plant_no.json", data);
         // log.info(`Api name :- personalInfo -- ${error}`);
         callback({
           message: "Plant Data Saved Successfully"
