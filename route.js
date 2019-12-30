@@ -39,27 +39,19 @@ module.exports = router => {
                 console.log('result',result)
                 log.info(`Api name :- uploadPlantData -- ${result}`);
                 res.send(result)
-            
-            // else {
-            //     log.info("Api name :- uploadPlantData -- success");
-            //     console.log('result',result)
-            //     res.send(result)
-            // }
         });
     });
 
     // Get Plant Data
 
     router.post('/getPlantData', function (req,res){
-        getPlantData.getPlantData(req,function(error, result){
-            if (error) {
-                log.info(`Api name :- getPlantData -- ${error}`);
-                res.send(error)
-            }
-            else {
-                log.info("Api name :- getPlantData -- success");
+        getPlantData.getPlantData(req,function(result){
+            
+                log.info(`Api name :- getPlantData -- ${result}`);
+                // res.send(error)           
+                // log.info("Api name :- getPlantData -- success");
                 res.send(result)
-            }
+            
         })
     });
 
@@ -67,14 +59,10 @@ module.exports = router => {
 
     router.post('/removePlantData', function(req,res){
         removePlantData.removePlantData(req, function (error, result){
-            if (error) {
-                log.info(`Api name :- removePlantData -- ${error}`);
-                res.send(error)
-            }
-            else {
-                log.info("Api name :- removePlantData -- success");
+                log.info(`Api name :- removePlantData -- ${result}`);
+                // res.send(error)
+                // log.info("Api name :- removePlantData -- success");
                 res.send(result)
-            }
         })
     });
 
@@ -131,27 +119,25 @@ module.exports = router => {
     });
 
     router.post('/shopDetails',function(req,res){
-        getPlantData.getPlantDataByID(req, function(error,result){
-            if (error) {
-                log.info(`Api name :- shopDetails -- ${error}`);
-                res.send(error)
-            }
-            else {
-                log.info("Api name :- shopDetails -- success");
+        getPlantData.getPlantDataByID(req, function(result){
+            
+                log.info(`Api name :- shopDetails -- ${result}`);
+                // res.send(error)
+            
+            
+                // log.info("Api name :- shopDetails -- success");
                 res.send(result)
-            }
+            
         })
     });
 
     router.post('/checkout',function(req,res){
-        checkout.checkout(req.body,function(error,result){
-            if(error){
-                log.info(`Api name :- checkout -- ${error}`);
-                res.send(error)
-            }else{
-                log.info("Api name :- checkout -- success");
+        checkout.checkout(req.body,function(result){
+            
+                log.info(`Api name :- checkout -- ${result}`);
+                // res.send(error)
+                // log.info("Api name :- checkout -- success");
                 res.send(result)
-            }
         });
     });
 }
