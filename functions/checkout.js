@@ -1,7 +1,7 @@
 var userDB = require("../models/userDetails");
 const isEmpty = require('is-empty');
 
-function checkout(req,callback){
+async function checkout(req,callback){
     let fname = req.fname;
     let lname = req.lname;
     let email = req.email;
