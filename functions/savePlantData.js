@@ -51,7 +51,7 @@ async function savePlantData(req, callback) {
       if (error) {
         console.log("error",error);
         callback({
-          message: "Oops something went wrong."
+          message: "error"
         });
       } else {
         // console.log(result);
@@ -63,7 +63,7 @@ async function savePlantData(req, callback) {
         // fs.writeFileSync("./plant_no.json", data);
         // log.info(`Api name :- personalInfo -- ${error}`);
         callback({
-          message: "Plant Data Saved Successfully"
+          message: "success"
         });
       }
     });

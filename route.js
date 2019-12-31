@@ -133,10 +133,7 @@ module.exports = router => {
 
     router.post('/checkout',function(req,res){
         checkout.checkout(req.body,function(result){
-            
                 log.info(`Api name :- checkout -- ${result}`);
-                // res.send(error)
-                // log.info("Api name :- checkout -- success");
                 res.send(result)
         });
     });

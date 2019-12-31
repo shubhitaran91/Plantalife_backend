@@ -1,7 +1,7 @@
 var userDB = require("../models/userDetails");
 const isEmpty = require('is-empty');
 
-async function checkout(req,callback){
+async function checkout(req, callback) {
     let fname = req.fname;
     let lname = req.lname;
     let email = req.email;
@@ -11,17 +11,19 @@ async function checkout(req,callback){
     let state = req.state;
     let zip = req.zip;
     let notes = req.notes
-    let products = req.products;
+    let products = [];
+    products = req.products
     let subtotal = req.subtotal;
     let shipping = req.shipping;
     let totalAmt = req.totalAmt;
+    let order_no = Math.floor(1000 + Math.random() * 900);
 
     let reqObject = {
         fname,
         lname,
         email,
         mobile,
-        order_list : [{
+        order_list: [{
             order_no,
             address,
             city,
@@ -30,16 +32,39 @@ async function checkout(req,callback){
             notes,
             subtotal,
             shipping,
-            totalAmt
+            totalAmt,
+            order_items: products
         }]
     }
 
-await userDB.find({"email" : email})
-    .then((userDetails) => {
-        if(isEmpty(userDetails)){
+    let userDetails = await userDB.find({ "email": email });
+    // console.log('userDetails', userDetails);
 
-        }
-    })
+    if (isEmpty(userDetails)) {
+        const checkoutDetails = new userDB(reqObject)
+        checkoutDetails.save(function (error, result) {
+            if (error) {
+                callback({
+                    message: "error"
+                })
+            } else {
+                callback({
+                    message: "success"
+                })
+            }
+        })
+    } else {
+        userDB.findOneAndUpdate({ "email": email },{
+            $push : {
+                order_list : reqObject.order_list
+            }
+        },{ new: true })
+        .then((response) => {
+            callback({
+                message: "Thank you for Shopping"
+            })
+        })
+    }
 }
 
 module.exports = {
