@@ -42,7 +42,7 @@ module.exports = router => {
         });
     });
 
-    // Get Plant Data
+    // Get Plant Data by plantType
 
     router.post('/getPlantData', function (req,res){
         getPlantData.getPlantData(req,function(result){
@@ -55,10 +55,21 @@ module.exports = router => {
         })
     });
 
+    // Get all PlantData
+    router.get('/getAllPlantData', function (req,res){
+        getPlantData.getAllPlantData(function(result){            
+                log.info(`Api name :- getPlantData -- ${result}`);
+                // res.send(error)           
+                // log.info("Api name :- getPlantData -- success");
+                res.send(result)
+            
+        })
+    });
+
     // Remove Plant Data
 
     router.post('/removePlantData', function(req,res){
-        removePlantData.removePlantData(req, function (error, result){
+        removePlantData.removePlantData(req, function (result){
                 log.info(`Api name :- removePlantData -- ${result}`);
                 // res.send(error)
                 // log.info("Api name :- removePlantData -- success");

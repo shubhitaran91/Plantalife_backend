@@ -17,31 +17,18 @@ async function removePlantData(req, callback) {
         })
     }else{
 
-    await plantsDB.findOneAndUpdate({"plants.plant_no": plant_no},{
-        $pull : {
-            "plants":{
-                plant_no : plant_no
-            }
-        }
-    },{ new: true })
+    await plantsDB.findOneAndDelete({"plant_no": plant_no})
             .then((plantData)=> {
-                console.log(plantData);
-                if(isEmpty(plantData)){
+                // console.log(plantData);
                     callback({
-                        "message": "No Data Found"
+                        "message": "success"
                     })
-                }else{
-                    callback({
-                        "message": "Plant Data Removed Succesfully"
-                    })
-                }
-               
             })
             .catch((error) => {
                 console.log(error);
                 log.info(`Api name :- removePlantData -- ${error}`);
                 callback({
-                    "message": "Oops something went wrong."
+                    "message": "error"
                 })
             })
         }

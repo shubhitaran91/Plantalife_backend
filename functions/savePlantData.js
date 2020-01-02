@@ -5,6 +5,7 @@ var log4js = require("log4js");
 var log = log4js.getLogger("app");
 const image2base64 = require("image-to-base64");
 
+
 module.exports = {
   savePlantData: savePlantData
 };
@@ -30,6 +31,7 @@ async function savePlantData(req, callback) {
       message: "Please Provide all Information"
     });
   } else {
+
     plant_photo = await image2base64(plant_photo);
     // let rawdata = fs.readFileSync("./plant_no.json");
     // var plant_no = JSON.parse(rawdata).plant_no;
