@@ -1,6 +1,6 @@
 var userDB = require("../models/userDetails");
 const isEmpty = require('is-empty');
-
+var nodemailer = require('nodemailer');
 async function checkout(req, callback) {
     let fname = req.fname;
     let lname = req.lname;
@@ -39,8 +39,33 @@ async function checkout(req, callback) {
 
     let userDetails = await userDB.find({ "email": email });
     // console.log('userDetails', userDetails);
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        host: 'smtp.gmail.com',
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: 'plantalifee@gmail.com',
+            pass: 'planta12'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'plantalifee@gmail.com',
+        to: email,
+        subject: 'Order Successfully',
+        html: `<h4>Hello ${fname},</h4><br>Your Order processed with order no: ${order_no}`
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
 
-    if (isEmpty(userDetails)) {
+    if(isEmpty(userDetails)) {
         const checkoutDetails = new userDB(reqObject)
         checkoutDetails.save(function (error, result) {
             if (error) {
