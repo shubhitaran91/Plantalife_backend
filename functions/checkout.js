@@ -1,6 +1,7 @@
 var userDB = require("../models/userDetails");
 const isEmpty = require('is-empty');
 var nodemailer = require('nodemailer');
+var dateFormat = require('dateformat');
 async function checkout(req, callback) {
     let fname = req.fname;
     let lname = req.lname;
@@ -17,7 +18,7 @@ async function checkout(req, callback) {
     let shipping = req.shipping;
     let totalAmt = req.totalAmt;
     let order_no = Math.floor(1000 + Math.random() * 900);
-let orderdate=new Date();
+let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
     let reqObject = {
         fname,
         lname,
@@ -155,7 +156,7 @@ let orderdate=new Date();
                                       </tr>
                                     </thead>
                                     <tbody>
-                                         <tr><td colspan="4">Order : ${order_no}</td> <td>${address}</td> </tr>
+                                         <tr><td colspan="4">Order : ${order_no}</td> <td>${address},${city},${state},${zip}</td> </tr>
                                         <tr><td colspan="3">Order Date : ${orderdate}</td></tr>
                                         <tr><td colspan="3">Order Total :${totalAmt}</td></tr>
                                         
