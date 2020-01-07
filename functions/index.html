@@ -1,61 +1,4 @@
-var userDB = require("../models/userDetails");
-const isEmpty = require('is-empty');
-var nodemailer = require('nodemailer');
-async function checkout(req, callback) {
-    let fname = req.fname;
-    let lname = req.lname;
-    let email = req.email;
-    let mobile = req.mobile
-    let address = req.address;
-    let city = req.city;
-    let state = req.state;
-    let zip = req.zip;
-    let notes = req.notes
-    let products = [];
-    products = req.products
-    let subtotal = req.subtotal;
-    let shipping = req.shipping;
-    let totalAmt = req.totalAmt;
-    let order_no = Math.floor(1000 + Math.random() * 900);
-let orderdate=new Date();
-    let reqObject = {
-        fname,
-        lname,
-        email,
-        mobile,
-        orderdate,
-        order_list: [{
-            order_no,
-            address,
-            city,
-            state,
-            zip,
-            notes,
-            subtotal,
-            shipping,
-            totalAmt,
-            order_items: products
-        }]
-    }
-
-    let userDetails = await userDB.find({ "email": email });
-    // console.log('userDetails', userDetails);
-    var transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        host: 'smtp.gmail.com',
-        secure: false,
-        requireTLS: true,
-        auth: {
-            user: 'plantalifee@gmail.com',
-            pass: 'planta12'
-        }
-      });
-      
-      var mailOptions = {
-        from: 'plantalifee@gmail.com',
-        to: email,
-        subject: 'Order Successfully',
-        html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html>
          
         <head>
@@ -122,7 +65,7 @@ let orderdate=new Date();
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td class="h2">
-                        Thank you ${fname} for the order !
+                        Thank you for the order !
                       </td>
                     </tr>
                     <tr>
@@ -155,9 +98,9 @@ let orderdate=new Date();
                                       </tr>
                                     </thead>
                                     <tbody>
-                                         <tr><td colspan="4">Order : ${order_no}</td> <td>${address}</td> </tr>
-                                        <tr><td colspan="3">Order Date : ${orderdate}</td></tr>
-                                        <tr><td colspan="3">Order Total :${totalAmt}</td></tr>
+                                         <tr><td colspan="4">Order</td> <td>Mumbai</td> </tr>
+                                        <tr><td colspan="3">Order Date</td></tr>
+                                        <tr><td colspan="3">Order Total</td></tr>
                                         
                                       </tr>
                                    
@@ -194,18 +137,18 @@ let orderdate=new Date();
                             <th scope="row"></th>
                             <td></td>
                             <td>Subtotal</td>
-                            <td>${subtotal}</td>
+                            <td>45</td>
                           </tr>
                           <tr>
                             <th scope="row"></th>
                             <td></td>
                             <td>Flat Rate Shipping</td>
-                            <td>${shipping}</td>
+                            <td>Free</td>
                           </tr>
                           <tr>
                             <th scope="row"></th>
                             <td colspan="2">Order Total</td>
-                            <td>${totalAmt}</td>
+                            <td>700</td>
                           </tr>
                         </tbody>
                       </table>
@@ -213,20 +156,20 @@ let orderdate=new Date();
                 </td>
               </tr>
               <tr>
-                 <td class="footer" bgcolor="#1976d2">
+                <td class="footer" bgcolor="#1976d2">
        
                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       
                             <tr>
                               <td style="padding-top:15px;padding-left: 230px" >
-                                <a href="https://www.facebook.com/plantalifeindia/">
+                                <a href="http://www.facebook.com/">
                                   <img src="../public/facebook.png"  height="37" alt="Facebook" border="0" />
                                 </a>
                               </td>
                               <td style="padding-top:15px;padding-right: 198px" >
-                                <a href="https://instagram.com/plantalife.in?igshid=1dqwkb2wmkabk">
-                                  <img src="../public/insta.png"  height="40" width="40" alt="instagram" border="0" />
+                                <a href="http://www.linkedin.com/">
+                                  <img src="../public/insta.png"  height="40" width="40" alt="linkedin" border="0" />
                                 </a>
                               </td>
                           
@@ -245,44 +188,3 @@ let orderdate=new Date();
         </table>
         </body>
         </html>
-        `
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-
-    if(isEmpty(userDetails)) {
-        const checkoutDetails = new userDB(reqObject)
-        checkoutDetails.save(function (error, result) {
-            if (error) {
-                callback({
-                    message: "error"
-                })
-            } else {
-                callback({
-                    message: "success"
-                })
-            }
-        })
-    } else {
-        userDB.findOneAndUpdate({ "email": email },{
-            $push : {
-                order_list : reqObject.order_list
-            }
-        },{ new: true })
-        .then((response) => {
-            callback({
-                message: "Thank you for Shopping"
-            })
-        })
-    }
-}
-
-module.exports = {
-    checkout
-}
