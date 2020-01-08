@@ -14,11 +14,20 @@ async function checkout(req, callback) {
     let notes = req.notes
     let products = [];
     products = req.products
+
     let subtotal = req.subtotal;
     let shipping = req.shipping;
     let totalAmt = req.totalAmt;
     let order_no = Math.floor(1000 + Math.random() * 900);
 let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
+    
+    var td="<td class=bodycopy>";
+    for(var i=0 ; i<products.length; i++){
+      let plantName = products[i].plantName
+      let plantPrice = products[i].plantPrice
+      td += plantName + "  " + plantPrice + "</td><br><br>"
+    }
+
     let reqObject = {
         fname,
         lname,
@@ -35,10 +44,12 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
             subtotal,
             shipping,
             totalAmt,
-            order_items: products
+          order_items:[products]
         }]
     }
-
+    
+    
+   
     let userDetails = await userDB.find({ "email": email });
     // console.log('userDetails', userDetails);
     var transporter = nodemailer.createTransport({
@@ -56,9 +67,10 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
         from: 'plantalifee@gmail.com',
         to: email,
         subject: 'Order Successfully',
+        
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html>
-         
+        
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <title>A Simple Responsive HTML Email</title>
@@ -131,6 +143,9 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
                         You'll receive an mail when your items are shipped.If you have any questions, call at 7790901214 or simplyreply to this mail.
                       </td>
                     </tr>
+                    <tr id="product">     
+                    ${td}              
+                  </tr>
                   </table>
                 </td>
               </tr>
