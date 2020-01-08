@@ -20,15 +20,17 @@ async function checkout(req, callback) {
     let totalAmt = req.totalAmt;
     let order_no = Math.floor(1000 + Math.random() * 900);
 let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
-    
-    var product=0;
-    
-    for(var i=0 ; i<products.length; i++){
+
+    var tablerow = "<tr>";
+    for(var i=0; i<products.length; i++){
+      let td='<td>'
       let plantName = products[i].plantName
       let plantPrice = products[i].plantPrice
-   product += plantName + "  " + plantPrice +"<br>"
-     
+      td += plantName + "</td><td></td><td>"
+      td += plantPrice + "</td>"
+      tablerow = tablerow + td + "</tr>"
     }
+
     let reqObject = {
         fname,
         lname,
@@ -146,7 +148,23 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
                     </tr>
                     <tr> 
                     <td class="bodycopy">
-                    ${product}    
+                    <table class="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th>PlantName</th>
+                       <th></th>
+                        
+                        <th>PlantPrice</th>
+                        
+                      </tr>
+                    </thead>
+                    <tr>
+                         ${tablerow}
+                      
+                      </tr>
+                   
+                    </tbody>
+                  </table>   
                     </td>          
                   </tr>
                   </table>
