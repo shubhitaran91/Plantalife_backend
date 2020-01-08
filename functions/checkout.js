@@ -21,13 +21,14 @@ async function checkout(req, callback) {
     let order_no = Math.floor(1000 + Math.random() * 900);
 let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
     
-    var td="<td class=bodycopy>";
+    var product=0;
+    
     for(var i=0 ; i<products.length; i++){
       let plantName = products[i].plantName
       let plantPrice = products[i].plantPrice
-      td += plantName + "  " + plantPrice + "</td><br><br>"
+   product += plantName + "  " + plantPrice +"<br>"
+     
     }
-
     let reqObject = {
         fname,
         lname,
@@ -143,8 +144,10 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
                         You'll receive an mail when your items are shipped.If you have any questions, call at 7790901214 or simplyreply to this mail.
                       </td>
                     </tr>
-                    <tr id="product">     
-                    ${td}              
+                    <tr> 
+                    <td class="bodycopy">
+                    ${product}    
+                    </td>          
                   </tr>
                   </table>
                 </td>
