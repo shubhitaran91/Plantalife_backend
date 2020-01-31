@@ -192,7 +192,7 @@ let orderdate=dateFormat(new Date(), "mmmm dS, yyyy");
                                       </tr>
                                     </thead>
                                     <tbody>
-                                         <tr><td colspan="4">Order : ${order_no}</td> <td>${address},${city},${state},${zip}</td> </tr>
+                                         <tr><td colspan="4">Order : ${order_no}</td> <td>${address},${city},${state},${zip},${mobile}</td> </tr>
                                         <tr><td colspan="3">Order Date : ${orderdate}</td></tr>
                                         <tr><td colspan="3">Order Total :${totalAmt}</td></tr>
                                         
