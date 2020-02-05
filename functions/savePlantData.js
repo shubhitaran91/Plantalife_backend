@@ -17,7 +17,7 @@ async function savePlantData(req, callback) {
   var plant_status = req.body.plant_status;
   var plant_desc =  req.body.plant_desc;
   var plant_photo = "xyz";
-  plant_photo = req.file.path;
+  plant_photo = req.body.plant_photo;
 
   if (
     !plant_type ||
@@ -32,7 +32,7 @@ async function savePlantData(req, callback) {
     });
   } else {
 
-    plant_photo = await image2base64(plant_photo);
+    // plant_photo = await image2base64(plant_photo);
     // let rawdata = fs.readFileSync("./plant_no.json");
     // var plant_no = JSON.parse(rawdata).plant_no;
     let plant_no = Math.floor(100 + Math.random() * 900);
