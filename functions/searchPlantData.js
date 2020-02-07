@@ -23,7 +23,8 @@ async function searchPlantData(req,callback) {
             } else {
                 var flag=0;
                 var result = {};
-                plantData = plantData[0].plants;
+                // plantData = plantData.plants;
+                console.log("plantData",plantData.length)
                 for(var i = 0; i < plantData.length; i++){
                     if(plant_no == plantData[i].plant_no){
                         flag=1;

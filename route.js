@@ -33,7 +33,7 @@ module.exports = router => {
 
     // Upload Plant Image 
 
-    router.post('/uploadPlantData',upload.single('photo'), async (req, res) => {
+    router.post('/uploadPlantData',upload.single('file'), async (req, res) => {
         savePlantData.savePlantData(req, function (result) {
             
                 console.log('result',result)
