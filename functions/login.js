@@ -1,4 +1,4 @@
-var userDB = require("../models/userDetails");
+var userDB = require("../models/register");
 const isEmpty = require('is-empty');
 
 

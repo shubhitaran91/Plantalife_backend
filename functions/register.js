@@ -1,6 +1,6 @@
 
 var nodemailer = require('nodemailer');
-var userDB = require("../models/userDetails");
+var userDB = require("../models/register");
 
 
 module.exports = {
@@ -10,12 +10,12 @@ module.exports = {
 function register(req, callback) {
     var email = req.body.email;
     var password = req.body.password;
-    var name = req.body.name;
+    var fname = req.body.fname;
 
     if(
         !email ||
         !password ||
-        !name 
+        !fname 
     ){
         callback({
             "message": "Please provide all Information"
@@ -25,7 +25,7 @@ function register(req, callback) {
     var userObj = {
         email,
         password,
-        name
+        fname
     }
 
     const userDetails = new userDB(userObj)
