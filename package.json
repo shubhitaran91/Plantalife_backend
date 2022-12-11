@@ -13,7 +13,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dateformat": "^3.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "image-to-base64": "^2.0.1",
     "is-empty": "^1.2.0",
     "log4js": "^5.1.0",
